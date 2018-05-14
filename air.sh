@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 
-init(){ set -u;trap exit ERR }
-input(){ read -p "press [enter] to ${@:2}." KEY }
-chk_exist(){ local rslt=0;if ! type ${1} >/dev/null 2>&1; then result=1;fi;return ${rslt} }
+input()
+{
+	read -p "press [enter] to ${@:2}." KEY
+}
+
+chk_exist(){
+	local rslt=0;
+	if ! type ${1} >/dev/null 2>&1
+	then
+		result=1
+	fi
+	return ${rslt}
+}
+
 msg(){
  	local HEADER="|-- [${1}] "
  	case ${1} in
@@ -32,11 +43,43 @@ msg(){
  	printf "${HEADER}${@:2}${FOOTER}"
 }
 
-watch_start(){ SECONDS=0 }
-watch_end(){ echo "running time:${SECONDS} [s]" }
+watch_start(){
+	SECONDS=0
+}
+
+watch_end(){
+	echo "running time:${SECONDS} [s]"
+}
+
+show(){
+	for opt in ${@}; do
+		case $opt in
+			-p)
+				printf "${1}"
+				;;
+			*)
+				;;
+		esac
+	done
+}
 
 # operator
-++(){ $(( ${1}=${1}+1 )) }
-+=(){ $(( ${1}=${1}+${2} )) }
---(){ $(( ${1}=${1}-1 )) }
--=(){ $(( ${1}=${1}-${2} )) }
+++()
+{
+	$(( ${1}=${1}+1 )); show
+}
+
++=()
+{
+	$(( ${1}=${1}+${2} )); show
+}
+
+--()
+{
+	$(( ${1}=${1}-1 )); show
+}
+
+-=()
+{
+	$(( ${1}=${1}-${2} )); show
+}
