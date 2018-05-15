@@ -15,32 +15,32 @@ chk_exist(){
 }
 
 msg(){
- 	local HEADER="|-- [${1}] "
- 	case ${1} in
- 		success)
- 			local COLOR=47 # GREEN
- 			local HEADER=${HEADERTYPE1}
- 			local FOOTER=""
- 			;;
- 		failed)
- 			local COLOR=197 #RED
- 			local HEADER=${HEADERTYPE1}
- 			local FOOTER=""
- 			;;
- 		msg)
- 			local COLOR=216 #ORANGE
- 			local HEADER="|-- [msg] "
- 			local FOOTER=""
- 			;;
- 		*)
- 			local COLOR=15 #WHITE
- 			local HEADER=${HEADER}
- 			local FOOTER=""
- 			;;
- 	esac
- 	local HEADER="\x1b[38;05;${COLOR}m${HEADER}"
- 	local FOOTER="${FOOTER}\033[00m\n"
- 	printf "${HEADER}${@:2}${FOOTER}"
+	local HEADER="|-- [${1}] "
+	case ${1} in
+		success)
+			local COLOR=47 # GREEN
+			local HEADER=${HEADERTYPE1}
+			local FOOTER=""
+			;;
+		failed)
+			local COLOR=197 #RED
+			local HEADER=${HEADERTYPE1}
+			local FOOTER=""
+			;;
+		msg)
+			local COLOR=216 #ORANGE
+			local HEADER="|-- [msg] "
+			local FOOTER=""
+			;;
+		*)
+			local COLOR=15 #WHITE
+			local HEADER=${HEADER}
+			local FOOTER=""
+			;;
+	esac
+	local HEADER="\x1b[38;05;${COLOR}m${HEADER}"
+	local FOOTER="${FOOTER}\033[00m\n"
+	printf "${HEADER}${@:2}${FOOTER}"
 }
 
 watch_start(){
