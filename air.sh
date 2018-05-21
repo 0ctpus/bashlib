@@ -5,7 +5,7 @@ input()
 	read -p "press [enter] to ${@:2}." KEY
 }
 
-chk_exist(){
+cmdchk(){
 	local rslt=0;
 	if ! type ${1} >/dev/null 2>&1
 	then
@@ -90,7 +90,8 @@ watch_end(){
 }
 
 show(){
-	for opt in ${@}; do
+	for opt in ${@}
+	do
 		case $opt in
 			-p)
 				printf "${1}"
@@ -99,6 +100,28 @@ show(){
 				;;
 		esac
 	done
+}
+
+loop(){
+	for opt in ${@}
+	do
+		case $opt in
+			-s)
+				printf "${1}"
+				;;
+			*)
+				;;
+		esac
+	done
+
+	while true
+	do
+		${@:1}
+	done
+}
+
+rmhist(){
+	rm ~/.bash_history
 }
 
 # operator
