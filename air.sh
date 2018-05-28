@@ -17,17 +17,15 @@ cmdchk(){
 # usage: msg {input|error|success|failed|em|msg} "message body"
 msg()
 {
-	local debug=0
-
-	if [ $1 = "input" ]; then
+	if [ ${1} = "input" ]; then
 		read -p "press [enter] to ${@:2}." KEY
 	else
-		case $1 in
+		case ${1} in
 			error)
-				local fcolor=1   # red
-				local bcolor=239 # dark gray
+				local fcolor=0 # black
+				local bcolor=1 # red
 				local header="  ERROR  "
-				local footer="         "
+				local footer=""
 				;;
 			success)
 				local fcolor=240 # dark gray
@@ -60,12 +58,13 @@ msg()
 					local header="  debug  "
 					local footer=""
 				else
-					return
+					return 0
 				fi
 				;;
 			*)
-				local fcolor=15 # white
-				local bcolor=15 # white
+				local fcolor=15  # white
+				local bcolor=239 # dark gray
+				local header="  ${1}  "
 				local footer=""
 				;;
 		esac
@@ -76,10 +75,10 @@ msg()
 		local header="${f}${b}${header}${reset} "
 		local footer=" ${f}${b}${footer}${reset}\n"
 
-		printf "${header}${@:2}${footer}"
+		shift
+		printf "${header}${@}${footer}"
 	fi
 }
-
 
 watch_start(){
 	SECONDS=0
