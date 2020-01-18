@@ -1,4 +1,4 @@
-# library for shell script
+# functions for shell script
 
 Usage
 -------------------
